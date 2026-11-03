@@ -39,11 +39,11 @@ body { background: var(--bg); color: var(--ink); font-family: var(--f-body); fon
 a { color: inherit; }
 :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 2px; }
 .mast { display: flex; flex-direction: column; gap: 12px; border-bottom: 3px solid var(--ink); padding-bottom: 16px; }
-.mast-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; font-family: var(--f-mono); font-size: 13px; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; }
+.mast-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; font-family: var(--f-mono); font-size: 13px; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; }
 h1 { font-family: var(--f-head); font-weight: 700; font-size: clamp(34px, 7vw, 56px); line-height: 1.02; margin: 0; text-wrap: balance; }
 .lede { margin: 0; max-width: 64ch; color: var(--muted); font-size: 17px; }
 .org { display: inline-flex; align-items: center; gap: 12px; }
-.org .logo { height: 44px; width: auto; display: block; }
+.org .logo { height: 76px; width: auto; display: block; }
 .stamp { align-self: flex-start; font-family: var(--f-mono); font-size: 12.5px; border: 1.5px solid var(--ink); padding: 3px 8px; letter-spacing: .04em; text-transform: uppercase; }
 .theme { font: inherit; font-family: var(--f-mono); font-size: 12.5px; background: none; color: var(--muted); border: 1px solid var(--line); padding: 4px 10px; cursor: pointer; border-radius: 2px; }
 .theme:hover { color: var(--ink); border-color: var(--ink); }
@@ -170,7 +170,7 @@ footer { font-size: 13px; color: var(--muted); border-top: 3px solid var(--ink);
 
 <div class="wrap">
   <header class="mast">
-    <div class="mast-top"><span class="org"><img class="logo" src="assets/nke-hhk-logo.png" alt="NKE HHK logó" height="44" onerror="this.remove()"><span id="issue">NKE HHK Katonai Távoktatási és Vizsgaközpont</span></span><button class="theme" id="themeBtn" type="button" aria-label="Világos vagy sötét megjelenés váltása">Téma</button></div>
+    <div class="mast-top"><span class="org"><img class="logo" src="assets/nke-hhk-logo.png" alt="NKE HHK logó" height="76" onerror="this.remove()"><span id="issue">NKE HHK Katonai Távoktatási és Vizsgaközpont</span></span><button class="theme" id="themeBtn" type="button" aria-label="Világos vagy sötét megjelenés váltása">Téma</button></div>
     <h1>Haderőfejlesztési hírlevél</h1>
     <p class="lede">Haderőfejlesztés, modernizáció és védelmi technológia, a NATO hadviselési domainjei és fegyvernemei szerint rendezve.</p>
     <span class="stamp" id="stamp">Napi kiadás · v0.6 · hiteles védelmi adatok (SIPRI, IISS)</span>
@@ -264,7 +264,7 @@ footer { font-size: 13px; color: var(--muted); border-top: 3px solid var(--ink);
     LAND: '<path d="M0 150 L50 100 L90 130 L150 70 L210 125 L260 90 L300 140 L300 200 L0 200Z" opacity=".5"/><rect x="40" y="128" width="150" height="26" rx="13"/><rect x="62" y="104" width="86" height="28" rx="8"/><rect x="140" y="112" width="104" height="7" rx="3"/><circle cx="62" cy="141" r="6" fill="var(--bg)"/><circle cx="92" cy="141" r="6" fill="var(--bg)"/><circle cx="122" cy="141" r="6" fill="var(--bg)"/><circle cx="152" cy="141" r="6" fill="var(--bg)"/><circle cx="176" cy="141" r="6" fill="var(--bg)"/>',
     MAR: '<path d="M20 120 H250 L225 152 H55Z"/><rect x="95" y="94" width="90" height="26"/><rect x="118" y="72" width="44" height="22"/><rect x="138" y="44" width="4" height="28"/><rect x="196" y="100" width="40" height="6"/><rect x="72" y="104" width="22" height="16"/><path d="M0 168 q18-14 36 0 t36 0 t36 0 t36 0 t36 0 t36 0 t36 0 t36 0 V200 H0Z" opacity=".55"/>',
     AIR: '<path d="M10 120 L130 108 L190 40 L206 40 L180 110 L270 118 L290 112 L296 118 L286 128 L180 134 L204 186 L190 186 L130 138 L10 132Z"/><path d="M0 188 H80 M220 176 H300 M30 168 H110" stroke="currentColor" stroke-width="3" opacity=".5"/>',
-    CYB: '<path d="M150 26 L226 52 V108 C226 150 192 176 150 192 C108 176 74 150 74 108 V52Z" opacity=".55"/><circle cx="150" cy="96" r="18"/><rect x="144" y="108" width="12" height="44"/><path d="M0 70 H60 L76 54 H110 M300 130 H236 L220 146 H190 M0 150 H48 M300 60 H250" stroke="currentColor" stroke-width="3" fill="none"/><circle cx="110" cy="54" r="5"/><circle cx="190" cy="146" r="5"/>',
+    CYB: '<path d="M150 26 L226 52 V108 C226 150 192 176 150 192 C108 176 74 150 74 108 V52Z" opacity=".55"/><circle cx="150" cy="96" r="18"/><rect x="144" y="108" width="12" height="76"/><path d="M0 70 H60 L76 54 H110 M300 130 H236 L220 146 H190 M0 150 H48 M300 60 H250" stroke="currentColor" stroke-width="3" fill="none"/><circle cx="110" cy="54" r="5"/><circle cx="190" cy="146" r="5"/>',
     SPA: '<circle cx="210" cy="140" r="86" opacity=".4"/><ellipse cx="210" cy="140" rx="120" ry="30" fill="none" stroke="currentColor" stroke-width="3" transform="rotate(-18 210 140)"/><rect x="96" y="58" width="38" height="30" rx="4" transform="rotate(-18 115 73)"/><rect x="56" y="64" width="34" height="18" transform="rotate(-18 73 73)"/><rect x="140" y="52" width="34" height="18" transform="rotate(-18 157 61)"/><circle cx="40" cy="30" r="2.5"/><circle cx="90" cy="20" r="2"/><circle cx="270" cy="30" r="2.5"/><circle cx="250" cy="70" r="2"/>',
     COG: '<path d="M20 110 C60 54 110 36 150 36 S240 54 280 110 C240 166 190 184 150 184 S60 166 20 110Z" opacity=".45"/><circle cx="150" cy="110" r="40"/><circle cx="150" cy="110" r="18" fill="var(--bg)"/><path d="M150 4 V22 M78 20 L90 36 M222 20 L210 36 M10 60 L30 70 M290 60 L270 70" stroke="currentColor" stroke-width="4" fill="none"/>',
     MDO: '<g stroke="currentColor" stroke-width="3" fill="none"><path d="M150 100 L150 40 M150 100 L210 62 M150 100 L214 140 M150 100 L150 170 M150 100 L86 140 M150 100 L90 62"/><path d="M150 40 L210 62 L214 140 L150 170 L86 140 L90 62Z" opacity=".5"/></g><circle cx="150" cy="100" r="16"/><circle cx="150" cy="40" r="11"/><circle cx="210" cy="62" r="11"/><circle cx="214" cy="140" r="11"/><circle cx="150" cy="170" r="11"/><circle cx="86" cy="140" r="11"/><circle cx="90" cy="62" r="11"/>'
