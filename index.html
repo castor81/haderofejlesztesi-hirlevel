@@ -166,6 +166,29 @@ td.n:last-child, th.n:last-child { padding-right: 0; }
 footer { font-size: 13px; color: var(--muted); border-top: 3px solid var(--ink); padding-top: 12px; display: flex; flex-direction: column; gap: 4px; font-family: var(--f-mono); }
 @media (prefers-reduced-motion: no-preference) { .fill { transition: width .4s ease; } }
 @media (max-width: 560px) { .pop { left: 12px !important; right: 12px; top: auto !important; bottom: 62px; width: auto; } .ghint { display: none; } }
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:0;padding:0;list-style:none}
+.kpi{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--red);padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.kpi b{font-family:var(--f-head);font-size:30px;line-height:1.1}
+.kpi span{font-size:13px;color:var(--muted)}
+.ana{display:flex;flex-direction:column;gap:14px;margin:0;padding:0;list-style:none}
+.ana li{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--d-mdo);padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.ana h3{margin:0;font-size:19px}.ana p{margin:0;max-width:72ch;font-size:15.5px}
+.ana .refs{font-size:13px;color:var(--muted)}.ana .refs a{margin-right:10px}
+details.top10{margin-top:10px;border:1px solid var(--line);background:var(--surface);padding:10px 14px}
+details.top10 summary{cursor:pointer;font-weight:600}
+details.top10 ol{margin:10px 0 0;padding-left:22px;display:flex;flex-direction:column;gap:8px}
+details.top10 .why{display:block;font-size:13px;color:var(--muted)}
+.trend{width:100%;height:auto;display:block}
+.trend text{fill:var(--muted);font-size:11px;font-family:var(--f-mono)}
+.tleg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted);margin:8px 0 0;padding:0;list-style:none}
+.tleg i{display:inline-block;width:10px;height:10px;margin-right:5px}
+.ctry{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:6px 18px;margin:14px 0 0;padding:0;list-style:none;font-size:14px}
+.ctry li{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dotted var(--line)}
+.hu{margin:4px 0 0;padding:10px 12px;border:1px solid var(--line);background:var(--surface);font-size:14.5px;max-width:72ch}
+.hu b{display:block;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.hu.t{border-style:dashed}
+.cl{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
 </style>
 
 <div class="wrap">
@@ -173,8 +196,19 @@ footer { font-size: 13px; color: var(--muted); border-top: 3px solid var(--ink);
     <div class="mast-top"><span class="org"><img class="logo" src="assets/nke-hhk-logo.png" alt="NKE HHK logó" height="76" onerror="this.remove()"><span id="issue">NKE HHK Katonai Távoktatási és Vizsgaközpont</span></span><button class="theme" id="themeBtn" type="button" aria-label="Világos vagy sötét megjelenés váltása">Téma</button></div>
     <h1>Haderőfejlesztési hírlevél</h1>
     <p class="lede">Haderőfejlesztés, modernizáció és védelmi technológia, a NATO hadviselési domainjei és fegyvernemei szerint rendezve.</p>
-    <span class="stamp" id="stamp">Napi kiadás · v0.6 · hiteles védelmi adatok (SIPRI, IISS)</span>
+    <span class="stamp" id="stamp">Napi kiadás · v0.7 · hiteles védelmi adatok (SIPRI, IISS)</span>
   </header>
+
+  <section class="sec" aria-labelledby="h-kpi">
+    <div class="sec-head"><h2 id="h-kpi">A nap számokban</h2></div>
+    <ul class="kpis" id="kpis"></ul>
+  </section>
+
+  <section class="sec" aria-labelledby="h-ana" id="anaSec" hidden>
+    <div class="sec-head"><h2 id="h-ana">Napi szerkesztői elemzés</h2><p>A napi első tíz tétel alapján, MI-támogatással készült összefoglaló; minden pont a támasztó hírekre hivatkozik. Szakmai ellenőrzés javasolt.</p></div>
+    <ul class="ana" id="ana"></ul>
+    <details class="top10" id="top10"><summary>A napi top 10 és a rangsor indoklása</summary><ol id="top10l"></ol></details>
+  </section>
 
   <section class="sec" aria-labelledby="h-top">
     <div class="sec-head"><h2 id="h-top">A nap és a hét haditechnikai fejlesztése</h2><p>A szerkesztő-modell a gyűjtött tételek közül a legjelentősebb haditechnikai fejlesztést emeli ki (0–10 pontos értékelés).</p></div>
@@ -211,6 +245,13 @@ footer { font-size: 13px; color: var(--muted); border-top: 3px solid var(--ink);
     <div class="drill" id="drill" hidden></div>
   </section>
 
+  <section class="sec" aria-labelledby="h-trend">
+    <div class="sec-head"><h2 id="h-trend">30 napos trend</h2><p>A fókuszba eső tételek napi száma hadviselési domainenként, és a leggyakrabban említett országok.</p></div>
+    <svg class="trend" id="trend" role="img" aria-label="A fókusztételek napi száma domainenként, az elmúlt 30 napban"></svg>
+    <ul class="tleg" id="tleg"></ul>
+    <ul class="ctry" id="ctry"></ul>
+  </section>
+
   <section class="sec" aria-labelledby="h-tetelek">
     <div class="sec-head"><h2 id="h-tetelek">Tételek magyar összefoglalóval</h2><p class="note">A besorolást és az összefoglalót mesterséges intelligencia készítette a cikk szövege alapján, ezért tévedhet. Az eredeti cikk mindig a címre kattintva érhető el.</p></div>
     <div class="tools">
@@ -230,7 +271,7 @@ footer { font-size: 13px; color: var(--muted); border-top: 3px solid var(--ink);
     </details>
   </section>
 
-  <footer><span id="foot"></span><span>Haderőfejlesztési hírlevél · infografika v0.6 · 2026-11-03</span></footer>
+  <footer><span id="foot"></span><span>Haderőfejlesztési hírlevél · infografika v0.7 · 2026-11-03</span></footer>
 </div>
 
 <script>// https://d3js.org/d3-array/ v3.2.4 Copyright 2010-2023 Mike Bostock
@@ -285,12 +326,19 @@ footer { font-size: 13px; color: var(--muted); border-top: 3px solid var(--ink);
   function money(v) { if (v == null) return 'nincs adat'; if (v >= 1e9) return '$' + (v / 1e9).toFixed(v >= 1e11 ? 0 : 1).replace('.', ',') + ' Mrd'; if (v >= 1e6) return '$' + Math.round(v / 1e6) + ' M'; return '$' + nf.format(v); }
   function n(v) { return v == null ? 'nincs adat' : nf.format(v); }
 
-  document.getElementById('stamp').textContent = 'Napi kiadás · ' + fmtDate(D.built) + ' · v0.6 · hiteles védelmi adatok (SIPRI, IISS)';
+  document.getElementById('stamp').textContent = 'Napi kiadás · ' + fmtDate(D.built) + ' · v0.7 · hiteles védelmi adatok (SIPRI, IISS)';
   var ITEMS = D.items;
 
   // ---- nap / hét
   var builtD = new Date(D.built + 'T00:00:00Z').getTime();
+  var BYID = {}; ITEMS.forEach(function (i) { BYID[i.id] = i; });
+  var TESZT = /[?&]teszt=1/.test(location.search);
   function pick(days) {
+    if (days === 1 && D.napi && D.napi.top && D.napi.top.length) {
+      var ids = [D.napi.nap].concat(D.napi.top.filter(function (x) { return x !== D.napi.nap; }));
+      var out = ids.map(function (x) { return BYID[x]; }).filter(Boolean).slice(0, 3);
+      if (out.length) return out;
+    }
     var lo = builtD - days * 86400000;
     return ITEMS.filter(function (i) { return new Date(i.d + 'T00:00:00Z').getTime() >= lo; })
       .sort(function (a, b) { return (b.p - a.p) || (b.d < a.d ? -1 : 1); }).slice(0, 3);
@@ -308,7 +356,7 @@ footer { font-size: 13px; color: var(--muted); border-top: 3px solid var(--ink);
     m.appendChild(el('span', 'lbl', state.per === 'day' ? 'A nap fejlesztése' : 'A hét fejlesztése'));
     m.appendChild(el('span', 'src', t.s)); m.appendChild(tierBadge(t));
     m.appendChild(el('span', null, NAMES[t.dom] + ' · ' + t.br));
-    m.appendChild(el('span', 'date', fmtDate(t.d) + ' · pontszám ' + t.p + '/10'));
+    m.appendChild(el('span', 'date', fmtDate(t.d) + ' · ' + (t.sp2 ? 'szerkesztői pontszám ' + t.sp2 + '/100' : 'pontszám ' + t.p + '/10')));
     h.appendChild(m);
     var hh = el('h3'); var a = el('a', null, t.th || t.t); a.href = safeUrl(t.u); a.target = '_blank'; a.rel = 'noopener noreferrer'; hh.appendChild(a); h.appendChild(hh);
     h.appendChild(el('p', 'abs', t.x));
@@ -316,7 +364,7 @@ footer { font-size: 13px; color: var(--muted); border-top: 3px solid var(--ink);
     hero.appendChild(h);
     top.slice(1).forEach(function (r) {
       var li = el('li', 'runner'); li.style.setProperty('--gc', dvar(r.dom));
-      li.appendChild(el('span', 'lbl', NAMES[r.dom] + ' · ' + r.p + '/10'));
+      li.appendChild(el('span', 'lbl', NAMES[r.dom] + ' · ' + (r.sp2 ? r.sp2 + '/100' : r.p + '/10')));
       var a2 = el('a', null, r.th || r.t); a2.href = safeUrl(r.u); a2.target = '_blank'; a2.rel = 'noopener noreferrer'; li.appendChild(a2);
       li.appendChild(el('span', 'orig', r.s + ' · ' + fmtDate(r.d)));
       run.appendChild(li);
@@ -396,7 +444,14 @@ footer { font-size: 13px; color: var(--muted); border-top: 3px solid var(--ink);
       li.appendChild(meta);
       var h = el('h3'); var a = el('a', null, it.th || it.t); a.href = safeUrl(it.u); a.target = '_blank'; a.rel = 'noopener noreferrer'; h.appendChild(a); li.appendChild(h);
       if (it.th && it.th !== it.t) li.appendChild(el('span', 'orig', 'Eredeti cím: ' + it.t));
+      if (it.cm > 1) li.appendChild(el('span', 'cl', it.cm + ' forrás is közölte ugyanezt az eseményt'));
       if (it.x) li.appendChild(el('p', 'abs', it.x));
+      if (it.hu && (it.hu[2] === 'ok' || (TESZT && it.hu[2] !== 'elutasitva'))) {
+        var hb = el('div', 'hu' + (it.hu[2] === 'ok' ? '' : ' t'));
+        hb.appendChild(el('b', null, 'Magyar vonatkozás · MI-támogatott, szakmai ellenőrzés javasolt' + (it.hu[2] === 'ok' ? '' : ' · TESZT (a tényanyag még nincs jóváhagyva)')));
+        hb.appendChild(document.createTextNode(String(it.hu[1]).replace(/\s*\[HU-\d+\]/g, '')));
+        li.appendChild(hb);
+      }
       var tg = el('div', 'tags'); tg.appendChild(el('span', 'tag', it.br)); it.sp.forEach(function (s) { tg.appendChild(el('span', 'tag', s)); }); li.appendChild(tg);
       list.appendChild(li);
     });
@@ -414,6 +469,49 @@ footer { font-size: 13px; color: var(--muted); border-top: 3px solid var(--ink);
     tr.appendChild(el('td', 'n', String(s.r))); tr.appendChild(el('td', 'n', String(s.c))); tr.appendChild(el('td', 'n', (s.r / s.c * 100).toFixed(0) + '%')); body.appendChild(tr);
   });
   document.getElementById('foot').textContent = 'Adatok: ' + nf.format(D.total) + ' gyűjtött tétel, ' + D.sources.length + ' forrás, ' + fmtDate(D.built) + '. A lista a fókuszba eső ' + nf.format(ITEMS.length) + ' tételt mutatja.';
+
+
+  // ---- KPI, napi elemzés, trend
+  (function () {
+    var b0x = new Date(D.built + 'T00:00:00Z').getTime();
+    var today = ITEMS.filter(function (i) { return i.d >= new Date(b0x - 2 * 86400000).toISOString().slice(0, 10); });
+    var cl = {}; ITEMS.forEach(function (i) { if (i.cm > 1 && i.cid != null) cl[i.cid] = 1; });
+    var ctr = {}; ITEMS.forEach(function (i) { (i.oc || []).forEach(function (c) { ctr[c] = (ctr[c] || 0) + 1; }); });
+    var K = [[today.length, 'tétel az elmúlt 3 napban'], [ITEMS.length, 'fókusztétel 30 napban'], [D.sources.length, 'figyelt forrás'], [Object.keys(cl).length, 'több forrás által közölt esemény'], [Object.keys(ctr).length, 'említett ország']];
+    var ku = document.getElementById('kpis');
+    K.forEach(function (k) { var li = el('li', 'kpi'); li.appendChild(el('b', null, nf.format(k[0]))); li.appendChild(el('span', null, k[1])); ku.appendChild(li); });
+    if (D.napi && D.napi.elemzes && D.napi.elemzes.length) {
+      document.getElementById('anaSec').hidden = false;
+      var ul = document.getElementById('ana');
+      D.napi.elemzes.forEach(function (p) {
+        var li = el('li'); li.appendChild(el('h3', null, p.cim)); li.appendChild(el('p', null, p.szoveg));
+        var rf = el('div', 'refs'); rf.appendChild(document.createTextNode('Forrás: '));
+        p.tetelek.forEach(function (id) { var it = BYID[id]; if (!it) return; var a = el('a', null, it.s); a.href = safeUrl(it.u); a.target = '_blank'; a.rel = 'noopener noreferrer'; a.title = it.th || it.t; rf.appendChild(a); });
+        li.appendChild(rf); ul.appendChild(li);
+      });
+      var ol = document.getElementById('top10l');
+      D.napi.top.forEach(function (id) { var it = BYID[id]; if (!it) return; var li = el('li'); var a = el('a', null, it.th || it.t); a.href = safeUrl(it.u); a.target = '_blank'; a.rel = 'noopener noreferrer'; li.appendChild(a); li.appendChild(el('span', 'why', (it.sp2 ? it.sp2 + '/100 · ' : '') + (it.ind || ''))); ol.appendChild(li); });
+    }
+    // trend: 30 nap, halmozott oszlopok
+    var days = [], b0 = new Date(D.built + 'T00:00:00Z').getTime();
+    for (var k = 29; k >= 0; k--) days.push(new Date(b0 - k * 86400000).toISOString().slice(0, 10));
+    var M = {}; days.forEach(function (d) { M[d] = {}; });
+    ITEMS.forEach(function (i) { if (M[i.d]) M[i.d][i.dom] = (M[i.d][i.dom] || 0) + 1; });
+    var mx = 1; days.forEach(function (d) { var s = 0; for (var q in M[d]) s += M[d][q]; if (s > mx) mx = s; });
+    var W = 720, H = 220, L = 30, B = 24, bw = (W - L) / 30, NS = 'http://www.w3.org/2000/svg', svg = document.getElementById('trend');
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    function se(n, a) { var e = document.createElementNS(NS, n); for (var q in a) e.setAttribute(q, a[q]); return e; }
+    [0, .5, 1].forEach(function (f) { var y = (H - B) - f * (H - B - 10); svg.appendChild(se('line', { x1: L, x2: W, y1: y, y2: y, stroke: 'currentColor', 'stroke-opacity': .15 })); var tx = se('text', { x: 2, y: y + 4 }); tx.textContent = Math.round(mx * f); svg.appendChild(tx); });
+    days.forEach(function (d, ix) {
+      var y = H - B, x = L + ix * bw;
+      ORDER.forEach(function (dk) { var v = M[d][dk] || 0; if (!v) return; var h = v / mx * (H - B - 10); y -= h; var r = se('rect', { x: x + 1.5, y: y, width: bw - 3, height: h, fill: dvar(dk) }); var tt = se('title', {}); tt.textContent = fmtDate(d) + ' · ' + NAMES[dk] + ': ' + v; r.appendChild(tt); svg.appendChild(r); });
+      if (ix % 6 === 0 || ix === 29) { var tx = se('text', ix === 29 ? { x: x + bw - 2, y: H - 6, 'text-anchor': 'end' } : { x: x, y: H - 6 }); tx.textContent = d.slice(5); svg.appendChild(tx); }
+    });
+    var lg = document.getElementById('tleg');
+    ORDER.forEach(function (dk) { var li = el('li'); var i = el('i'); i.style.background = dvar(dk); li.appendChild(i); li.appendChild(document.createTextNode(NAMES[dk])); lg.appendChild(li); });
+    var cu = document.getElementById('ctry');
+    Object.keys(ctr).sort(function (a, b) { return ctr[b] - ctr[a]; }).slice(0, 12).forEach(function (c) { var li = el('li'); li.appendChild(el('span', null, c)); li.appendChild(el('b', null, String(ctr[c]))); cu.appendChild(li); });
+  })();
 
   // ---- földgömb
   var features = topojson.feature(TOPO, TOPO.objects.countries).features;
